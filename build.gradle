@@ -1,0 +1,11 @@
+apply plugin: 'java'
+apply plugin: 'application'
+
+mainClassName = 'org.shorne.connect4.GameMain'
+
+run {
+    standardInput = System.in
+}
+
+sourceCompatibility = 1.8
+targetCompatibility = 1.8
