@@ -14,9 +14,6 @@ I am leaving out as I don't think its needed for such a simple game.
  - Logging infrastructure
  - Monitoring
 
-## TODO
- - Support automatic gradle build
-
 ## Build with
 
 ```
@@ -28,7 +25,7 @@ gradle build
 ```
 java -cp ./build/classes/main org.shorne.connect4.GameMain
 
-# or (doesnt work with current Console implementation)
+# or
 
-gradle run
+gradle run -q
 ```
