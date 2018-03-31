@@ -46,6 +46,11 @@ public class GameMain {
         return number;
     }
 
+    /**
+     * Start the game, asking for user input and displaying the
+     * results of each turn.  This game will exit when the game
+     * is finished due to a win or a draw.
+     */
     public void start() {
         Board board = new Board (columns, rows);
         int turn = 0;
@@ -94,6 +99,14 @@ public class GameMain {
 
     public void setColumns(int columns) {
         this.columns = columns;
+    }
+
+    public int getRows() {
+        return rows;
+    }
+
+    public void setRows(int rows) {
+        this.rows = rows;
     }
 
     public Player[] getPlayers() {

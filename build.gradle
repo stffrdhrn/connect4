@@ -1,10 +1,19 @@
 apply plugin: 'java'
 apply plugin: 'application'
+apply plugin: 'eclipse'
 
 mainClassName = 'org.shorne.connect4.GameMain'
 
 run {
     standardInput = System.in
+}
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    testCompile group: 'junit', name: 'junit', version: '4.+'
 }
 
 sourceCompatibility = 1.8

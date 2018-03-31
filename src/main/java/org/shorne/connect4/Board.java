@@ -4,7 +4,7 @@ package org.shorne.connect4;
  * The playing board data structure, provides logic
  * for dropping discs and detecting winners.
  *
- * The playing board laid out as follows
+ * The playing board is laid out as follows
  *
  * rows| | | | |    | |
  *    .
@@ -45,12 +45,12 @@ public class Board {
      * that you have already validated the column is within
      * range of the board.
      *
-     * @player the player that is dropping the disc (i.e. RED/GREEN)
-     * @column the column to drop (starting at 1)
+     * @param player the player that is dropping the disc (i.e. RED/GREEN)
+     * @param column the column to drop (starting at 1)
      * @return <code>true</code> if drop successful, <code>false</code> if
      * the column is already full.
      */
-    public boolean dropDisc (Player player, int column) {
+    public boolean dropDisc(Player player, int column) {
         Player [] columnStack = board [column - 1];
         int height = this.columnHeights[column - 1];
 
@@ -71,7 +71,7 @@ public class Board {
      *
      * @return the rendered ascii board
      */
-    public String render () {
+    public String render() {
         StringBuilder boardRender = new StringBuilder();
         String [] columnValues = new String [this.columns];
 
@@ -114,15 +114,15 @@ public class Board {
     /**
      * Scans the board and returns the winner if there is one.  Returns
      * Player.NONE if none.
-     *
+     * <p>
      * This uses a simple brute force scanning algorithm. For a board it
      * will scan columns by rows 3 times.  First looking for column connect
      * winners.  Second looking for row connection winners.  Finally, it
      * scans again looks for diagonals in both directions.
-     *
+     * <p>
      * It could probably be optimized, but it not really needed.
      */
-    public Player getWinner () {
+    public Player getWinner() {
         /* Scan rows */
         for (int row = 0; row < this.rows; row++) {
             for (int column = 0; column < this.columns; column++) {
