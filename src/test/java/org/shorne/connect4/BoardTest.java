@@ -18,6 +18,9 @@ import org.junit.Test;
  */
 public class BoardTest {
 
+    /**
+     * Test for columns to become full.
+     */
     @Test
     public void testDropDiscFill () {
         Board board = new Board(7, 6);
@@ -49,6 +52,8 @@ public class BoardTest {
         List<TestCase> testCases = readTestCases("testcases.txt");
          
         for (TestCase testCase : testCases) {
+
+            /* Create a new board for each case */
             Board board = new Board(7, 6);
             int turn = 0;
             Player [] players = { Player.RED, Player.GREEN };
@@ -57,10 +62,11 @@ public class BoardTest {
                 board.dropDisc(players [turn++ % players.length], move);
             }
             System.out.println(board.render());
+            
             Assert.assertEquals(testCase.winner, board.getWinner());
             Assert.assertEquals(testCase.expectedResult, board.render());
             if (testCase.winner == Player.NONE) {
-                Assert.assertTrue("Ensure board is full if now winner", board.isFull());
+                Assert.assertTrue("Ensure board is full if no winner", board.isFull());
             }
             
         }
@@ -72,6 +78,23 @@ public class BoardTest {
         Player winner;
     }
 
+    /**
+     * Read test cases from a text file. The format of the test case will be:
+     * 
+     * CASE=4,4,5,5,3,2,6
+     * WINNER=RED
+     * | | | | | | | |
+     * | | | | | | | |
+     * | | | | | | | |
+     * | | | | | | | |
+     * | | | |G|G| | |
+     * | |G|R|R|R|R| |
+     * 
+     * Where CASE is the comma separated list of moves.
+     * Where WINNER is the PLAYER that wins after the moves are complete
+     * After CASE and WINNER every line starting with '|' is considers
+     * part of the results.
+     */
     protected List<TestCase> readTestCases (String file) {
         BufferedReader br = new BufferedReader(
                 new InputStreamReader(

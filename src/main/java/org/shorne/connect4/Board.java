@@ -7,7 +7,7 @@ package org.shorne.connect4;
  * The playing board is laid out as follows
  *
  * rows| | | | |    | |
- *    .
+ *  ...
  *    2| | | | |    | |
  *    1| | | | |    | |
  *    0| | | | |    | |

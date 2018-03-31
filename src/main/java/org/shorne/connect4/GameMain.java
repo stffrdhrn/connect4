@@ -1,7 +1,6 @@
 package org.shorne.connect4;
 
 import java.io.BufferedReader;
-import java.io.Console;
 import java.io.InputStreamReader;
 
 /**
