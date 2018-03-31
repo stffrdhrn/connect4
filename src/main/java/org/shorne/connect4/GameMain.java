@@ -2,40 +2,51 @@ package org.shorne.connect4;
 
 import java.io.Console;
 
+/**
+ * Main program for the connect4 game, loads the board and
+ * players then starts the main user input loop.
+ * 
+ * @author shorne
+ *
+ */
 public class GameMain {
-
-    private static final int columns = 7;
-    private static final int rows  = 6;
-    private static final Player [] players = { Player.RED, Player.GREEN };
 
     private static final Console console = System.console();
 
-    private static int readAndValidate () {
+    private int columns = 7;
+    private int rows  = 6;
+    private Player [] players = { Player.RED, Player.GREEN };
+
+    private int readAndValidate () {
         try {
-           int number = 0;
-           String input = console.readLine();
-           input = input.trim();
-
-           if ("q".equals(input)) {
-               System.exit (0);
-           }
-           /* Try to parse a number if we can */
-           try {
-               number = Integer.parseInt(input);
-           } catch (Exception e) { /* ignore, detected below */ }
-
-           if (number <= 0 || number > columns) {
-               number = 0;
-               System.err.printf ("No valid column in input: %s, try again.\n",
-                                  input);
-           }
-           return number;
+            String input = console.readLine();
+            return validate(input);
         } catch (Exception e) {
-           throw new RuntimeException ("Stdin read failed ", e);
+            /* Rethrow the error as runnable since we can't handle it anyway
+             * and need to fail fast.
+             */
+            throw new RuntimeException ("Stdin read failed ", e);
         }
     }
 
-    public static void main (String [] args) {
+    protected int validate(String input) {
+        int number = 0;
+        input = input.trim();
+
+        /* Try to parse a number if we can */
+        try {
+            number = Integer.parseInt(input);
+        } catch (Exception e) { /* ignore, detected below */ }
+
+        if (number <= 0 || number > columns) {
+            number = 0;
+            System.err.printf ("Invalid column in input: %s, try again.\n",
+                    input);
+        }
+        return number;
+    }
+
+    public void start() {
         Board board = new Board (columns, rows);
         int turn = 0;
 
@@ -49,17 +60,55 @@ public class GameMain {
             int playerIndex = turn % players.length;
             Player player = players[playerIndex];
 
-            board.render();
-            System.out.printf ("\nPlayer %d [%s] - choose column (1-%d): ",
-                               playerIndex + 1,
-                               player.name(),
-                               columns);
+            System.out.print(board.render());
+            System.out.printf("\nPlayer %d [%s] - choose column (1-%d): ",
+                    playerIndex + 1,
+                    player.name(),
+                    columns);
 
+            /* Read and drop a disc, if it succeeds move to next turn */
             int column = readAndValidate ();
             if (column > 0) {
-               board.dropDisc (player, column);
-               turn++;
+                if (board.dropDisc (player, column)) {
+                   turn++;
+                } else {
+                    System.err.printf ("Column is full, try again.\n");
+                }
             }
-        } while (board.getWinner() == Player.NONE);
+        } while (board.getWinner() == Player.NONE
+                && !board.isFull());
+
+        System.out.print(board.render());
+        if (board.isFull()) {
+            System.out.println ("\nIts a draw, try again next time.");
+        } else {
+            System.out.printf("\nPlayer %d [%s] wins!\n",
+                    ((turn - 1) % players.length) + 1, 
+                    board.getWinner());
+        }
     }
+
+    public int getColumns() {
+        return columns;
+    }
+
+    public void setColumns(int columns) {
+        this.columns = columns;
+    }
+
+    public Player[] getPlayers() {
+        return players;
+    }
+
+    public void setPlayers(Player[] players) {
+        this.players = players;
+    }
+
+    /* The main entry point */
+    public static void main (String [] args) {
+        GameMain gameMain = new GameMain();
+        /* Run game with defaults. */
+        gameMain.start();
+    }
+
 }
