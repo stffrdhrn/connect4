@@ -6,7 +6,7 @@ import java.io.InputStreamReader;
 /**
  * Main program for the connect4 game, loads the board and
  * players then starts the main user input loop.
- * 
+ *
  * @author shorne
  *
  */
@@ -84,11 +84,11 @@ public class GameMain {
                 && !board.isFull());
 
         System.out.print(board.render());
-        if (board.isFull()) {
+        if (board.getWinner() == Player.NONE) {
             System.out.println ("\nIts a draw, try again next time.");
         } else {
             System.out.printf("\nPlayer %d [%s] wins!\n",
-                    ((turn - 1) % players.length) + 1, 
+                    ((turn - 1) % players.length) + 1,
                     board.getWinner());
         }
     }
