@@ -1,6 +1,8 @@
 package org.shorne.connect4;
 
+import java.io.BufferedReader;
 import java.io.Console;
+import java.io.InputStreamReader;
 
 /**
  * Main program for the connect4 game, loads the board and
@@ -11,7 +13,7 @@ import java.io.Console;
  */
 public class GameMain {
 
-    private static final Console console = System.console();
+    BufferedReader console;
 
     private int columns = 7;
     private int rows  = 6;
@@ -56,8 +58,7 @@ public class GameMain {
         int turn = 0;
 
         if (console == null) {
-            System.err.println ("No console detected, are you running one?");
-            System.exit (1);
+            console = new BufferedReader(new InputStreamReader(System.in));
         }
 
         do {

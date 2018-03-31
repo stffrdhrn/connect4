@@ -1,5 +1,7 @@
 # Connect 4
 
+[![Build Status](https://travis-ci.org/stffrdhrn/connect4.svg?branch=master)](https://travis-ci.org/stffrdhrn/connect4)
+
 Simple java game challenge.  I have implemented this in a no frills
 way.  The requirement is prod-ready which I take as:
  - Proper input validations
@@ -13,10 +15,7 @@ I am leaving out as I don't think its needed for such a simple game.
  - Monitoring
 
 ## TODO
- - Use System.in instead of console, as its broken in grandle build
  - Support automatic gradle build
- - Double check everything wit unit tests
- - Setup travis continuous integration
 
 ## Build with
 
